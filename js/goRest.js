@@ -1,4 +1,20 @@
-document.addEventListener('DOMContentLoaded', async() => {
+async function loadPostsList() {
+    const response = await fetch(`https://gorest.co.in/public-api/posts${window.location.search}`)
+    const responseData = await response.json();
+    
+    const postsList = document.createElement('ul')
+    
+    for ( let i = 0; i < responseData.data.length; i++) {
+        const post = document.createElement('li');
+        post.textContent = [responseData.data[i].id]
+        postsList.append(post)
+    }
+    
+    // console.log(postsList)
+    return postsList
+}
+
+// document.addEventListener('DOMContentLoaded', async() => {
     const container = document.getElementById('container')
 
     async function loadPageList() {
@@ -36,36 +52,23 @@ document.addEventListener('DOMContentLoaded', async() => {
         })
     }
 
+async function createPostList(container) {
+    const postList = loadPostsList()
+    
+    container.append(postList)
+    console.log(postList)
 
-    async function loadPostsList() {
-        const response = await fetch(`https://gorest.co.in/public-api/posts${window.location.search}`)
-        const responseData = await response.json();
-        
-        console.log(responseData)
-        const postsList = document.createElement('ul')
+    // postList.addEventListener('click', (e) => {
+    //     e.preventDefault();
+    //     if ( e.target.tagName === 'LI' ) {
+    //         window.location = `goRestPost.html?page=${e.target.textContent}`
+    //     }
+    // })
 
-        for ( let i = 0; i < responseData.data.length; i++) {
-            const post = document.createElement('li');
-            post.textContent = [responseData.data[i].id]
-            
-            postsList.append(post)
-        }
-
-        container.append(postsList)
-
-        postsList.addEventListener('click', (e) => {
-            e.preventDefault();
-            if ( e.target.tagName === 'LI' ) {
-                window.location = `goRestPost.html?page=${e.target.textContent}`
-            }
-        })
-    }
-
-    loadPageList();
-    loadPostsList();
+}
 
 
-});
+// });
 
 
     
