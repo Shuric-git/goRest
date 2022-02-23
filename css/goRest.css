@@ -1,0 +1,11 @@
+.page-item :hover{
+    cursor: pointer;
+}
+
+.list-group :hover {
+    cursor: pointer;
+}
+
+.display-1 {
+    font-size: 1.8rem;
+}
